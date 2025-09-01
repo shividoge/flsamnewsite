@@ -341,7 +341,7 @@ a:focus {
 .slider_section .detail-box {
   color: #fff;
   margin-bottom: 145px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgb(2, 56, 20);
   border-radius: 2%;
   padding: 30px; 
 }
@@ -1112,7 +1112,7 @@ a:focus {
             padding: 20px;
             border: 1px solid #ddd;
             text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgb(2, 56, 20);
             border-radius: 15px; /* Add curved edges */
             transition: background-color 0.3s; /* Smooth transition for background color */
         }
@@ -1152,7 +1152,7 @@ a:focus {
   margin-bottom: 20px;
   overflow: hidden;
   border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgb(2, 56, 20);
   transition: transform 0.3s ease-in-out;
   box-sizing: border-box;
   background-color: white; /* Optional: gives consistent background for all logos */
@@ -1238,14 +1238,14 @@ a:focus {
   border: 1px solid #e4e7e6;
   border-radius: 16px;
   padding: 24px 28px;                      /* inner breathing room */
-  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+  box-shadow: 0 6px 14px rgb(2, 56, 20);
   transition: transform .12s ease, box-shadow .12s ease;
   text-align: left;                        /* more readable for paragraphs */
 }
 
 .region-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(0,0,0,0.10);
+  box-shadow: 0 10px 22px rgb(2, 56, 20);
 }
 
 /* Headings inside cards */
@@ -1345,7 +1345,7 @@ a:focus {
   border-radius: 14px;
   background: #f5f7f6;
   border: 1px solid #e5e9e7;
-  box-shadow: 0 6px 14px rgba(0,0,0,.06);
+  box-shadow: 0 6px 14px rgb(2, 56, 20);
 }
 
 .gallery-item img {
