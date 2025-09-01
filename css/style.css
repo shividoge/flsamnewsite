@@ -416,7 +416,7 @@ a:focus {
   margin-top: 45px;
   border-radius: 5px;
   padding: 20px 15px;
-  background-color: #222831;
+  background-color: #023814;
   color: #ffffff;
 }
 
@@ -503,7 +503,7 @@ a:focus {
 }
 
 .food_section .filters_menu li.active {
-  background-color: #222831;
+  background-color: #023814;
   color: #ffffff;
 }
 
@@ -515,7 +515,7 @@ a:focus {
   color: #ffffff;
   border-radius: 15px;
   overflow: hidden;
-  background: linear-gradient(to bottom, #f1f2f3 25px, #222831 25px);
+  background: linear-gradient(to bottom, #f1f2f3 25px, #023814 25px);
 }
 
 .food_section .box .img-box {
@@ -620,7 +620,7 @@ a:focus {
 }
 
 .about_section {
-  background: #222831;
+  background: #023814;
   color: #ffffff;
   align-content: center;
 }
@@ -793,7 +793,7 @@ a:focus {
 }
 
 .client_section .box .detail-box {
-  background-color: #222831;
+  background-color: #023814;
   color: #ffffff;
   padding: 25px 25px 15px 25px;
   border-radius: 5px;
