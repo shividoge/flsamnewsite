@@ -31,63 +31,87 @@
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
 <style>
-  /* Section spacing */
-  .sponsor-wrap { padding: 3rem 0 4rem; }
-  .sponsor-header h1 { font-size: clamp(1.75rem, 2.5vw, 2.5rem); margin-bottom: .25rem; }
-  .sponsor-sub { color: #5f5f5f; margin: 0 auto 1rem; max-width: 820px; }
+/* Scope everything under .flsam-sponsors to avoid collisions */
+.flsam-sponsors{ padding: 3rem 0 4rem; display:block !important; }
+.flsam-sponsors *{ box-sizing: border-box; }
 
-  /* Responsive grids */
-  .sponsor-grid, .spotlight {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.25rem;
-    margin-top: 1.5rem;
-  }
+/* Header */
+.flsam-sponsors__header h1{
+  font-size: clamp(1.75rem, 2.5vw, 2.5rem);
+  margin-bottom: .25rem;
+}
+.flsam-sponsors__sub{
+  color:#5f5f5f; margin:0 auto 1rem; max-width:820px;
+}
 
-  /* Sponsor card */
-  .sponsor-card{
-    position: relative; background: #fff; border-radius: 18px;
-    padding: 1.1rem 1.2rem 1.25rem;
-    box-shadow: 0 10px 24px rgba(0,0,0,.08);
-    border: 3px solid transparent; text-decoration: none; color: inherit;
-    transition: transform .18s ease, box-shadow .18s ease;
-  }
-  .sponsor-card:hover{ transform: translateY(-2px); box-shadow: 0 16px 28px rgba(0,0,0,.12); }
-  .sponsor-card::before{
-    content:""; position:absolute; inset:0; border-radius:18px; padding:2px;
-    background:
-      linear-gradient(120deg, var(--border-color,#1a73e8), transparent 40%),
-      linear-gradient(300deg, transparent 60%, var(--border-color,#1a73e8));
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor; mask-composite: exclude;
-    opacity:.55; pointer-events:none;
-  }
+/* Responsive grids (same widths for cards & spotlight) */
+.flsam-sponsors__grid,
+.flsam-sponsors__spotlight{
+  display: grid !important;              /* force grid even if something overrides */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
 
-  /* BIG logo band – centered and never clipped */
-  .sponsor-logo-hero{
-    height: clamp(120px, 22vw, 160px);
-    background:#fff; border-radius:14px;
-    box-shadow: 0 4px 12px rgba(0,0,0,.06) inset, 0 2px 6px rgba(0,0,0,.05);
-    display:flex; align-items:center; justify-content:center;
-    overflow:hidden; padding:10px; margin-bottom:.7rem;
-  }
-  .sponsor-logo-hero img{
-    max-width:100%; max-height:100%; object-fit:contain; display:block;
-  }
+/* Card */
+.flsam-sponsors__card{
+  position: relative; border-radius: 18px; background:#fff;
+  box-shadow: 0 10px 24px rgba(0,0,0,.08);
+  border: 3px solid transparent; overflow: hidden;
+}
+.flsam-sponsors__card::before{
+  content:""; position:absolute; inset:0; border-radius:18px; padding:2px;
+  background:
+    linear-gradient(120deg, var(--accent,#1a73e8), transparent 40%),
+    linear-gradient(300deg, transparent 60%, var(--accent,#1a73e8));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity:.55; pointer-events:none;
+}
+.flsam-sponsors__link{
+  display:block; text-decoration:none; color:inherit;
+  padding: 1.1rem 1.2rem 1.25rem;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.flsam-sponsors__link:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(0,0,0,.12);
+}
 
-  .sponsor-name{ font-weight:800; font-size:1.1rem; margin:0 0 .25rem; text-align:center; }
-  .sponsor-note{ color:#616161; font-size:.95rem; margin:0; text-align:center; }
+/* BIG logo band – centered, never clipped */
+.flsam-sponsors__logo-band{
+  height: clamp(120px, 22vw, 160px);
+  background:#fff; border-radius:14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.06) inset, 0 2px 6px rgba(0,0,0,.05);
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden; padding:12px; margin-bottom:.7rem;
+}
+.flsam-sponsors__logo-band img{
+  max-width:100%; max-height:100%; object-fit:contain; display:block;
+}
 
-  /* Spotlight cards */
-  .spot-card{
-    background: linear-gradient(180deg, #ffffff, #fbfbff);
-    border: 1px solid #ececec; border-radius:18px; padding:1.25rem;
-    box-shadow: 0 6px 18px rgba(0,0,0,.06);
-  }
-  .spot-card h3{ font-size:1.1rem; margin-bottom:.25rem; }
-  .spot-card p{ margin:0; color:#5a5a5a; }
+/* Text */
+.flsam-sponsors__name{
+  font-weight:800; font-size:1.1rem; margin:0 0 .25rem; text-align:center;
+}
+.flsam-sponsors__note{
+  color:#616161; font-size:.95rem; margin:0; text-align:center;
+}
 
-  @media (max-width:576px){ .sponsor-wrap{ padding-top:2rem; } }
+/* Spotlight */
+.flsam-spot__card{
+  background: linear-gradient(180deg, #ffffff, #fbfbff);
+  border: 1px solid #ececec; border-radius: 18px;
+  padding: 1.25rem; box-shadow: 0 6px 18px rgba(0,0,0,.06);
+}
+.flsam-spot__card h3{ font-size:1.1rem; margin-bottom:.25rem; }
+.flsam-spot__card p{ margin:0; color:#5a5a5a; }
+
+/* Mobile */
+@media (max-width:576px){
+  .flsam-sponsors{ padding-top:2rem; }
+}
+
 </style>
 </head>
 
@@ -147,59 +171,61 @@
     <!-- end header section -->
   </div>
 
-<section class="sponsor-wrap">
+<!-- ===== Sponsors Section (collision-proof) ===== -->
+<section class="flsam-sponsors">
   <div class="container">
-    <header class="sponsor-header text-center">
+    <header class="flsam-sponsors__header text-center">
       <h1>Our Sponsors</h1>
-      <p class="sponsor-sub">
-        These organizations fuel problem-solving, teamwork, and opportunities for Florida students. 
+      <p class="flsam-sponsors__sub">
+        These organizations fuel problem-solving, teamwork, and opportunities for Florida students.
         We’re grateful for their generous support.
       </p>
     </header>
 
-    <div class="sponsor-grid">
+    <!-- Cards -->
+    <div class="flsam-sponsors__grid">
       <!-- Wolfram -->
-      <a class="sponsor-card" href="https://www.wolfram.com/?source=nav" target="_blank" rel="noopener"
-         style="--border-color:#dd1100">
-        <div class="sponsor-logo-hero">
-          <!-- Make sure this path is correct in your repo -->
-          <img src="wolfram-corporate-logo-horz-lg.png" alt="Wolfram" loading="lazy">
-        </div>
-        <h3 class="sponsor-name">Wolfram</h3>
-        <p class="sponsor-note">Supporting creative computation and math exploration.</p>
-      </a>
+      <div class="flsam-sponsors__card" style="--accent:#dd1100">
+        <a class="flsam-sponsors__link" href="https://www.wolfram.com/?source=nav" target="_blank" rel="noopener">
+          <div class="flsam-sponsors__logo-band">
+            <img src="wolfram-corporate-logo-horz-lg.png" alt="Wolfram" loading="lazy">
+          </div>
+          <h3 class="flsam-sponsors__name">Wolfram</h3>
+          <p class="flsam-sponsors__note">Supporting creative computation and math exploration.</p>
+        </a>
+      </div>
 
       <!-- Jane Street -->
-      <a class="sponsor-card" href="https://www.janestreet.com/puzzles/" target="_blank" rel="noopener"
-         style="--border-color:#000000">
-        <div class="sponsor-logo-hero">
-          <!-- Make sure this path is correct in your repo -->
-          <img src="IMG_2169-removebg-preview.png" alt="Jane Street" loading="lazy">
-        </div>
-        <h3 class="sponsor-name">Jane Street</h3>
-        <p class="sponsor-note">Championing problem solving and puzzle culture.</p>
-      </a>
+      <div class="flsam-sponsors__card" style="--accent:#000000">
+        <a class="flsam-sponsors__link" href="https://www.janestreet.com/puzzles/" target="_blank" rel="noopener">
+          <div class="flsam-sponsors__logo-band">
+            <img src="IMG_2169-removebg-preview.png" alt="Jane Street" loading="lazy">
+          </div>
+          <h3 class="flsam-sponsors__name">Jane Street</h3>
+          <p class="flsam-sponsors__note">Championing problem solving and puzzle culture.</p>
+        </a>
+      </div>
     </div>
 
-    <div class="spotlight">
-      <div class="spot-card">
+    <!-- Appreciation -->
+    <div class="flsam-sponsors__spotlight">
+      <div class="flsam-spot__card">
         <h3><i class="fa-solid fa-award"></i> Why their support matters</h3>
-        <p>Sponsor funding helps us host practices, travel to competitions, and provide 
-          materials for students across Florida to train at a high level.</p>
+        <p>Sponsor funding helps us host practices, travel to competitions, and provide materials for students across Florida.</p>
       </div>
-      <div class="spot-card">
+      <div class="flsam-spot__card">
         <h3><i class="fa-solid fa-people-group"></i> Students impacted</h3>
-        <p>Hundreds of students participate annually in FLSAM events—gaining teamwork skills, 
-          leadership experience, and a lifelong love of mathematics.</p>
+        <p>Hundreds of students participate annually—gaining teamwork skills, leadership experience, and a love of mathematics.</p>
       </div>
-      <div class="spot-card">
+      <div class="flsam-spot__card">
         <h3><i class="fa-solid fa-handshake-angle"></i> Interested in sponsoring?</h3>
-        <p>We welcome partners who share our mission. Reach out via our contact page to 
-          learn about sponsorship tiers and benefits.</p>
+        <p>We welcome partners who share our mission. Reach out via our contact page to learn about sponsorship tiers.</p>
       </div>
     </div>
   </div>
 </section>
+<!-- ===== End Sponsors Section ===== -->
+
 
 
 
@@ -289,6 +315,21 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
   </script>
   <!-- End Google Map -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const sec = document.querySelector('.flsam-sponsors');
+  if (!sec) return;
+  // Un-hide if some script toggled display/visibility
+  sec.hidden = false;
+  sec.style.removeProperty('display');
+  if (getComputedStyle(sec).display === 'none') sec.style.display = 'block';
+
+  // Also fix children that got display:none inline
+  sec.querySelectorAll('[style*="display:none"]').forEach(el => {
+    el.style.removeProperty('display');
+  });
+});
+</script>
 
 
 </body>
