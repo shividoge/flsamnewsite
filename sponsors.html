@@ -289,33 +289,6 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
   </script>
   <!-- End Google Map -->
-<script>
-(function () {
-  function popConfetti(container, name, color) {
-    const emojis = ["🎉","✨","💫","🌟","👏"];
-    for (let i = 0; i < 10; i++) {
-      const el = document.createElement('i');
-      el.textContent = emojis[i % emojis.length];
-      el.style.left = (10 + Math.random()*80) + '%';
-      el.style.bottom = '0px';
-      el.style.setProperty('--x', (Math.random() * 80 - 40) + 'px');
-      el.style.setProperty('--y', (-20 - Math.random() * 20) + 'px');
-      el.style.color = color || 'inherit';
-      container.appendChild(el);
-      setTimeout(() => el.remove(), 1000);
-    }
-  }
-
-  document.querySelectorAll('.sponsor-card').forEach(card => {
-    card.addEventListener('click', (e) => {
-      const confettiLayer = card.querySelector('.confetti');
-      const name = card.getAttribute('data-name') || 'Sponsor';
-      const color = getComputedStyle(card).getPropertyValue('--border-color').trim();
-      if (confettiLayer) popConfetti(confettiLayer, name, color);
-    });
-  });
-})();
-</script>
 
 
 </body>
