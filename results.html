@@ -33,8 +33,6 @@
 
 </head>
 
-<body>
-
   <body class="sub_page">
 
   <div class="hero_area">
@@ -455,17 +453,18 @@
   </script>
   <!-- End Google Map -->
 <script>
-(function(){
-  const panels = [...document.querySelectorAll('.dl-panel')];
-  const pills  = [...document.querySelectorAll('.dl-pill')];
+(function () {
+  const panels = Array.from(document.querySelectorAll('.dl-panel'));
+  const pills  = Array.from(document.querySelectorAll('.dl-pill'));
   const select = document.getElementById('dl-year-select');
 
+  // collect available years from the pills
   const years = pills
     .map(b => Number(b.dataset.year))
     .filter(Number.isFinite)
-    .sort((a,b)=>a-b); // ascending
+    .sort((a,b) => a - b); // ascending
 
-  function closestYear(target){
+  function closestYear(target) {
     if (!years.length || !Number.isFinite(target)) return null;
     return years.reduce((best, y) => {
       const d = Math.abs(y - target);
@@ -475,52 +474,60 @@
     }, years[0]);
   }
 
-  function showYear(year, {fromHash=false} = {}){
-    // activate panel
-    panels.forEach(p => p.classList.toggle('active', p.id === `panel-${year}`));
+  function showYear(year, { fromHash = false } = {}) {
+    const y = String(year);
+    // activate the right panel
+    panels.forEach(p => p.classList.toggle('active', p.id === `panel-${y}`));
     // update pills
-    pills.forEach(b=>{
-      const on = b.dataset.year === String(year);
+    pills.forEach(b => {
+      const on = b.dataset.year === y;
       b.classList.toggle('active', on);
       b.setAttribute('aria-selected', on ? 'true' : 'false');
     });
     // sync select
-    if (select && select.value !== String(year)) select.value = String(year);
-    // update hash for deep-linking (skip if we came from a hashchange)
-    if (!fromHash) history.replaceState(null,'', `#year-${year}`);
+    if (select && select.value !== y) select.value = y;
+    // keep URL hash in sync
+    if (!fromHash) {
+      try { history.replaceState(null, '', `#year-${y}`); } catch(e){}
+    }
   }
 
   // click on pills
   pills.forEach(b => b.addEventListener('click', () => showYear(b.dataset.year)));
 
-  // select change (mobile)
-  if (select){
+  // select change (works even if nice-select replaces it)
+  if (select) {
+    // native listener
     select.addEventListener('change', e => showYear(e.target.value));
+    // jQuery fallback (nice-select triggers change on the original element)
+    if (window.jQuery) {
+      jQuery(document).on('change', '#dl-year-select', function () {
+        showYear(this.value);
+      });
+    }
   }
 
-  // initial load
-  const hashMatch = (location.hash.match(/year-(\d{4})/)||[])[1];
-  const hashYear = hashMatch ? Number(hashMatch) : null;
+  // initial year: hash -> current year -> latest available
+  const hashYear = (location.hash.match(/year-(\d{4})/) || [])[1];
   const nowYear  = new Date().getFullYear();
-
-  let initialYear;
-  if (hashYear && years.includes(hashYear)) {
-    initialYear = hashYear;
+  let initial = years[years.length - 1]; // latest by default
+  if (hashYear && years.includes(Number(hashYear))) {
+    initial = Number(hashYear);
   } else {
-    // choose closest available to current year
-    initialYear = closestYear(nowYear) || years[years.length - 1]; // fallback to most recent
+    initial = closestYear(nowYear) || initial;
   }
-  showYear(initialYear, {fromHash: !!(hashYear && years.includes(hashYear))});
+  showYear(initial, { fromHash: !!(hashYear && years.includes(Number(hashYear))) });
 
-  // keep in sync if hash changes (e.g., manual editing)
-  window.addEventListener('hashchange', ()=>{
-    const m = (location.hash.match(/year-(\d{4})/)||[])[1];
-    const target = m ? Number(m) : nowYear;
-    const yr = years.includes(target) ? target : (closestYear(target) || years[years.length - 1]);
-    showYear(yr, {fromHash:true});
+  // react to manual hash edits
+  window.addEventListener('hashchange', () => {
+    const m = (location.hash.match(/year-(\d{4})/) || [])[1];
+    const t = m ? Number(m) : nowYear;
+    const yr = years.includes(t) ? t : (closestYear(t) || years[years.length - 1]);
+    showYear(yr, { fromHash: true });
   });
 })();
 </script>
+
 
 </body>
 
