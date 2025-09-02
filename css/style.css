@@ -329,7 +329,7 @@ a:focus {
 /* --- Caption box: lower, narrower, opaque --- */
 .slider_section .carousel-caption {
   position: absolute;
-  bottom: 14%;                        /* lower on the slide (tweak 10–20%) */
+  bottom: 0%;                        /* lower on the slide (tweak 10–20%) */
   left: 50%;
   transform: translateX(-50%);        /* center horizontally */
   width: min(88vw, 560px);            /* narrower box; change 560px as desired */
