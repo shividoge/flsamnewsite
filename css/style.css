@@ -332,18 +332,17 @@ a:focus {
 /* Centered overlay caption */
 .slider_section .detail-box {
   position: absolute;
-  top: 50%;
+  top: 65%;                 /* pushes it down (lower than center) */
   left: 50%;
-  transform: translate(-50%, -50%);   /* center of the slide */
-  width: min(92%, 900px);
-  background: rgba(2, 56, 20, 0.94);
+  transform: translate(-50%, -50%);
+  width: min(80vw, 600px);  /* narrower: max 600px, else 80% of screen */
+  background: rgba(2, 56, 20, 0.85);  /* opaque green w/ transparency */
   color: #fff;
   border-radius: 16px;
-  padding: 24px 24px 16px;
-  margin: 0;
-  box-shadow: 0 16px 40px rgba(0,0,0,.18);
+  padding: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.25);
   text-align: center;
-  z-index: 2;                          /* above any media */
+  z-index: 2;                   /* above any media */
 }
 
 /* Headline & paragraph */
