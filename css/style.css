@@ -347,19 +347,30 @@ a:focus {
 .slider_section .carousel-caption p  { font-size: 14px; line-height: 1.45; margin: 0 0 10px; }
 .slider_section .carousel-caption .btn1 { padding: 8px 22px; font-size: 13px; border-radius: 999px; }
 
-/* --- Keep your indicators and point them at the right ID --- */
-#flsamCarousel .carousel-indicators {
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 0;
+/* Put indicators at the bottom inside the caption */
+#flsamCarousel .carousel-caption .carousel-indicators {
+  position: static;              /* relative to caption box */
+  margin-top: 14px;              /* space above them */
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 0;
 }
-#flsamCarousel .carousel-indicators li {
-  width: 12px; height: 12px; border-radius: 50%;
-  background: #ffffff; opacity: .4; transition: transform .2s, opacity .2s;
+
+/* Small rectangular bars instead of dots */
+#flsamCarousel .carousel-caption .carousel-indicators li {
+  flex: 0 0 28px;                /* bar width */
+  height: 6px;                   /* bar height */
+  border-radius: 3px;            /* rounded edges */
+  background: #ffffff;
+  opacity: 0.35;
+  transition: opacity .2s ease, transform .2s ease;
 }
-#flsamCarousel .carousel-indicators li.active { opacity: 1; transform: scale(1.15); }
+
+#flsamCarousel .carousel-caption .carousel-indicators li.active {
+  opacity: 1;
+  transform: scaleY(1.3);        /* makes active bar a bit taller */
+}
 
 /* --- Mobile tweaks --- */
 @media (max-width: 768px) {
