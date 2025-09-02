@@ -312,120 +312,76 @@ a:focus {
 }
 
 /*end header section*/
-/* Slider section holds the hero background and carousel */
-.slider_section {
-  position: relative;
-  overflow: hidden;
-  padding: 0;
-}
-
-/* Let Bootstrap handle display on items; just set size/positioning context */
+/* 1) Let items size to content (no tall hero) */
 .slider_section .carousel,
-.slider_section .carousel-inner,
-.slider_section .carousel-item {
-  min-height: 520px;
+.slider_section .carousel-inner {
+  min-height: unset; /* remove the enforced 520px canvas */
 }
 .slider_section .carousel-item {
-  position: relative; /* positioning context for the overlay */
+  /* Make the slide "small" and pushed down */
+  display: flex;
+  justify-content: center;  /* center horizontally */
+  align-items: flex-end;    /* push content toward the bottom */
+  padding: 40px 16px 90px;  /* bottom gap controls how far down */
+  background: transparent;  /* the item itself has no background */
+  min-height: auto;         /* ensure the slide shrinks to content */
 }
 
-/* Centered overlay caption */
-.slider_section .detail-box {
-  position: absolute;
-  top: 65%;                 /* pushes it down (lower than center) */
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(80vw, 600px);  /* narrower: max 600px, else 80% of screen */
-  background: rgba(2, 56, 20, 0.85);  /* opaque green w/ transparency */
-  color: #fff;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 12px 30px rgba(0,0,0,.25);
-  text-align: center;
-  z-index: 2;                   /* above any media */
-}
-
-/* Custom caption box */
+/* 2) Caption becomes a normal inline block that only wraps text */
 .slider_section .carousel-caption {
-  position: absolute;
-  top: 65%;                 /* pushes it down (lower than center) */
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(80vw, 600px);  /* narrower: max 600px, else 80% of screen */
-  background: rgba(2, 56, 20, 0.85);  /* opaque green w/ transparency */
+  position: static;         /* no absolute positioning */
+  transform: none;          /* reset from old rules */
+  left: auto; top: auto;
+
+  display: inline-block;    /* shrink-wrap around its content */
+  width: min(92vw, 520px);  /* narrower overall */
+  max-width: 520px;
+
+  /* If you want a transparent box: */
+  background: transparent;
+
+  /* If you want a translucent box, swap the line above for:
+     background: rgba(2,56,20,.55); */
+
   color: #fff;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 12px 30px rgba(0,0,0,.25);
+  border-radius: 14px;
+  padding: 14px 16px;       /* small breathing room around text */
+  box-shadow: none;         /* no heavy card look */
   text-align: center;
-  z-index: 2;
 }
 
-/* Headline & paragraph */
-.slider_section .detail-box h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  margin: 0 0 10px;
-}
-.slider_section .detail-box p {
-  font-size: 15px;
-  margin: 0 0 12px;
-  line-height: 1.5;
+/* Optional: smaller text so the box looks “tighter” */
+.slider_section .carousel-caption h1 { font-size: 2rem; margin: 0 0 8px; }
+.slider_section .carousel-caption p  { font-size: 14px; line-height: 1.45; margin: 0 0 10px; }
+
+/* Keep the button compact */
+.slider_section .carousel-caption .btn1 {
+  padding: 8px 22px;
+  font-size: 13px;
+  border-radius: 999px;
 }
 
-/* Button */
-.slider_section .detail-box .btn1,
-.slider_section .detail-box a.btn1 {
-  display: inline-block;
-  padding: 10px 36px;
-  background: #023814;
-  color: #fff !important;
-  border-radius: 45px;
-  border: none;
-  transition: background-color .3s ease;
-  font-size: 14px;
-  text-decoration: none;
+/* Mobile tweaks */
+@media (max-width: 768px) {
+  .slider_section .carousel-item { padding: 28px 12px 70px; }
+  .slider_section .carousel-caption { width: min(94vw, 480px); }
+  .slider_section .carousel-caption h1 { font-size: 1.7rem; }
+  .slider_section .carousel-caption p  { font-size: 13.5px; }
 }
-.slider_section .detail-box .btn1:hover { background: #056b27; }
 
-/* Indicators (now in the correct place) */
-#customCarousel1 .carousel-indicators {
+/* 3) Make sure indicators target your real ID */
+#flsamCarousel .carousel-indicators {
   position: absolute;
   bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
   margin: 0;
 }
-#customCarousel1 .carousel-indicators li {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #ffffff;
-  opacity: 0.4;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+#flsamCarousel .carousel-indicators li {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: #ffffff; opacity: .4; transition: transform .2s, opacity .2s;
 }
-#customCarousel1 .carousel-indicators li.active {
-  opacity: 1;
-  transform: scale(1.15);
-}
-
-/* Optional: background images inside slides */
-.slider_section .img-box img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Mobile tweaks */
-@media (max-width: 768px) {
-  .slider_section .carousel,
-  .slider_section .carousel-item { min-height: 460px; }
-  .slider_section .detail-box {
-    padding: 18px 18px 12px;
-  }
-  .slider_section .detail-box h1 { font-size: 2rem; }
-  .slider_section .detail-box p { font-size: 14px; }
-}
+#flsamCarousel .carousel-indicators li.active { opacity: 1; transform: scale(1.15); }
 
 .offer_section {
   position: relative;
