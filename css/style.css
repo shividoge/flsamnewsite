@@ -345,6 +345,22 @@ a:focus {
   z-index: 2;                   /* above any media */
 }
 
+/* Custom caption box */
+.slider_section .carousel-caption {
+  position: absolute;
+  top: 65%;                 /* pushes it down (lower than center) */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(80vw, 600px);  /* narrower: max 600px, else 80% of screen */
+  background: rgba(2, 56, 20, 0.85);  /* opaque green w/ transparency */
+  color: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.25);
+  text-align: center;
+  z-index: 2;
+}
+
 /* Headline & paragraph */
 .slider_section .detail-box h1 {
   font-size: 3rem;
