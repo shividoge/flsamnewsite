@@ -400,7 +400,72 @@ a:focus {
   height: 20px;
   background-color: #023814;
 }
+/* give slides enough height for the overlay to sit on the image */
+.slider_section .carousel,
+.slider_section .carousel-item {
+  min-height: 520px;
+}
 
+/* each slide is positioning context for the overlay */
+.slider_section .carousel-item { position: relative; }
+
+/* turn your existing .detail-box into the overlay */
+.slider_section .detail-box {
+  position: absolute;
+  left: 50%;
+  bottom: 8%;                       /* how low the box sits */
+  transform: translateX(-50%);
+  width: min(92%, 900px);
+  margin: 0 !important;             /* kill the old big bottom margin */
+  background-color: rgba(2, 56, 20, 0.94); /* your green, with a touch of transparency */
+  color: #fff;
+  border-radius: 16px;
+  padding: 24px 24px 16px;          /* a bit tighter bottom to make room for dots */
+  box-shadow: 0 16px 40px rgba(0,0,0,.18);
+  z-index: 5;
+}
+
+/* headings and text spacing inside the overlay */
+.slider_section .detail-box h1 { margin: 0 0 8px; }
+.slider_section .detail-box p  { margin: 0 0 12px; }
+
+/* put the indicators INSIDE the overlay and style them */
+.slider_section .detail-box .carousel-indicators {
+  position: static;                 /* they flow at the bottom of the box */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 0;
+}
+.slider_section .detail-box .carousel-indicators li {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #ffffff;
+  opacity: .35;
+  transition: transform .2s ease, opacity .2s ease;
+}
+.slider_section .detail-box .carousel-indicators li.active {
+  background: #ffffff;
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+/* hide the original (outer) indicators container */
+.slider_section > .container > .carousel-indicators {
+  display: none !important;
+}
+
+/* mobile tweaks */
+@media (max-width: 768px){
+  .slider_section .carousel,
+  .slider_section .carousel-item { min-height: 460px; }
+  .slider_section .detail-box {
+    bottom: 5%;
+    width: min(94%, 900px);
+    padding: 18px 18px 12px;
+  }
+}
 .offer_section {
   position: relative;
   padding-top: 45px;
