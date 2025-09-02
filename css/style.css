@@ -312,158 +312,119 @@ a:focus {
 }
 
 /*end header section*/
-/* slider section */
 .slider_section {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   position: relative;
-  padding: 45px 0 75px 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 0; /* no extra spacing around */
 }
 
-.slider_section .row {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.slider_section #customCarousel1 {
-  width: 100%;
-  position: unset;
-}
-
-.slider_section .detail-box {
-  color: #fff;
-  margin-bottom: 145px;
-  background-color: rgb(2, 56, 20);
-  border-radius: 2%;
-  padding: 30px; 
-}
-
-.slider_section .detail-box h1 {
-  font-size: 3.5rem;
-  font-weight: bold;
-  margin-bottom: 15px;
-}
-
-.slider_section .detail-box p {
-  font-size: 14px;
-}
-
-.slider_section .detail-box a {
-  display: inline-block;
-  padding: 10px 45px;
-  background-color: #023814;
-  color: #ffffff;
-  border-radius: 45px;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  border: none;
-  margin-top: 10px;
-}
-
-.slider_section .detail-box a:hover {
-  background-color: #056b27;
-}
-
-.slider_section .img-box img {
-  width: 100%;
-}
-
-.slider_section .carousel-indicators {
-  position: unset;
-  margin: 0;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.slider_section .carousel-indicators li {
-  background-color: #ffffff;
-  width: 12px;
-  height: 12px;
-  border-radius: 100%;
-  opacity: 1;
-}
-
-.slider_section .carousel-indicators li.active {
-  width: 20px;
-  height: 20px;
-  background-color: #023814;
-}
-/* give slides enough height for the overlay to sit on the image */
+/* make sure each slide has enough height */
 .slider_section .carousel,
 .slider_section .carousel-item {
   min-height: 520px;
 }
+.slider_section .carousel-item {
+  position: relative; /* so overlay anchors to this */
+}
 
-/* each slide is positioning context for the overlay */
-.slider_section .carousel-item { position: relative; }
-
-/* turn your existing .detail-box into the overlay */
+/* detail-box becomes a centered overlay near bottom */
 .slider_section .detail-box {
   position: absolute;
   left: 50%;
-  bottom: 8%;                       /* how low the box sits */
+  bottom: 8%;                          /* adjust up/down */
   transform: translateX(-50%);
-  width: min(92%, 900px);
-  margin: 0 !important;             /* kill the old big bottom margin */
-  background-color: rgba(2, 56, 20, 0.94); /* your green, with a touch of transparency */
+  width: min(92%, 900px);               /* max width of caption box */
+  background-color: rgba(2, 56, 20, 0.94); /* your dark green w/ transparency */
   color: #fff;
   border-radius: 16px;
-  padding: 24px 24px 16px;          /* a bit tighter bottom to make room for dots */
+  padding: 24px 24px 16px;
+  margin: 0;
   box-shadow: 0 16px 40px rgba(0,0,0,.18);
   z-index: 5;
+  text-align: left;
 }
 
-/* headings and text spacing inside the overlay */
-.slider_section .detail-box h1 { margin: 0 0 8px; }
-.slider_section .detail-box p  { margin: 0 0 12px; }
+.slider_section .detail-box h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0 0 10px;
+}
 
-/* put the indicators INSIDE the overlay and style them */
-.slider_section .detail-box .carousel-indicators {
-  position: static;                 /* they flow at the bottom of the box */
+.slider_section .detail-box p {
+  font-size: 15px;
+  margin: 0 0 12px;
+  line-height: 1.5;
+}
+
+/* buttons inside overlay */
+.slider_section .detail-box a {
+  display: inline-block;
+  padding: 10px 36px;
+  background-color: #023814;
+  color: #ffffff;
+  border-radius: 45px;
+  border: none;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+}
+.slider_section .detail-box a:hover {
+  background-color: #056b27;
+}
+
+/* indicators now live inside the overlay */
+.slider_section .carousel-indicators {
+  position: static; /* they flow inside the overlay box */
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
   margin: 8px 0 0;
+  padding: 0;
 }
-.slider_section .detail-box .carousel-indicators li {
-  width: 10px; height: 10px;
+.slider_section .carousel-indicators li {
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: #ffffff;
-  opacity: .35;
-  transition: transform .2s ease, opacity .2s ease;
+  opacity: 0.4;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
-.slider_section .detail-box .carousel-indicators li.active {
-  background: #ffffff;
+.slider_section .carousel-indicators li.active {
   opacity: 1;
-  transform: scale(1.08);
+  transform: scale(1.15);
+  background: #ffffff;
 }
 
-/* hide the original (outer) indicators container */
+/* hide the outer/global indicators (we moved them inside) */
 .slider_section > .container > .carousel-indicators {
   display: none !important;
 }
 
-/* mobile tweaks */
-@media (max-width: 768px){
+/* images in background */
+.slider_section .img-box img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* mobile adjustments */
+@media (max-width: 768px) {
   .slider_section .carousel,
-  .slider_section .carousel-item { min-height: 460px; }
+  .slider_section .carousel-item {
+    min-height: 460px;
+  }
   .slider_section .detail-box {
     bottom: 5%;
-    width: min(94%, 900px);
     padding: 18px 18px 12px;
+    width: min(94%, 900px);
+  }
+  .slider_section .detail-box h1 {
+    font-size: 2rem;
+  }
+  .slider_section .detail-box p {
+    font-size: 14px;
   }
 }
 .offer_section {
