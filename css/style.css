@@ -312,40 +312,38 @@ a:focus {
 }
 
 /*end header section*/
-/* Slider section container */
+/* Slider section holds the hero background and carousel */
 .slider_section {
   position: relative;
   overflow: hidden;
   padding: 0;
 }
 
-/* Make each slide a flexbox so we can bottom-center the caption reliably */
+/* Let Bootstrap handle display on items; just set size/positioning context */
 .slider_section .carousel,
 .slider_section .carousel-inner,
 .slider_section .carousel-item {
   min-height: 520px;
 }
-
 .slider_section .carousel-item {
-  display: flex;
-  align-items: flex-end;              /* push content to the bottom */
-  justify-content: center;            /* center horizontally */
-  position: relative;
-  padding: 24px;                      /* breathing room at edges */
+  position: relative; /* positioning context for the overlay */
 }
 
-/* The caption box */
+/* Centered overlay caption */
 .slider_section .detail-box {
-  position: relative;                 /* no absolute needed */
-  width: min(900px, 100%);
-  background: rgba(2, 56, 20, 0.94);  /* dark green */
-  color: #fff;                        /* ensure readable text */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);   /* center of the slide */
+  width: min(92%, 900px);
+  background: rgba(2, 56, 20, 0.94);
+  color: #fff;
   border-radius: 16px;
   padding: 24px 24px 16px;
-  margin: 0 auto 8px;                 /* sit just above the bottom edge */
+  margin: 0;
   box-shadow: 0 16px 40px rgba(0,0,0,.18);
-  text-align: center;                 /* center the text */
-  z-index: 1000;                      /* sit above any slide media */
+  text-align: center;
+  z-index: 2;                          /* above any media */
 }
 
 /* Headline & paragraph */
@@ -354,7 +352,6 @@ a:focus {
   font-weight: 700;
   margin: 0 0 10px;
 }
-
 .slider_section .detail-box p {
   font-size: 15px;
   margin: 0 0 12px;
@@ -367,7 +364,7 @@ a:focus {
   display: inline-block;
   padding: 10px 36px;
   background: #023814;
-  color: #fff !important;             /* don’t inherit wrong link colors */
+  color: #fff !important;
   border-radius: 45px;
   border: none;
   transition: background-color .3s ease;
@@ -376,31 +373,32 @@ a:focus {
 }
 .slider_section .detail-box .btn1:hover { background: #056b27; }
 
-/* Indicators inside the caption (optional, as you had) */
-.slider_section .detail-box .carousel-indicators {
-  position: static !important;        /* override Bootstrap absolute */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  margin: 8px 0 0;
-  padding: 0;
+/* Indicators (now in the correct place) */
+#customCarousel1 .carousel-indicators {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
 }
-.slider_section .detail-box .carousel-indicators li {
-  width: 12px; height: 12px; border-radius: 50%;
-  background: #fff; opacity: .4;
-  transition: transform .2s ease, opacity .2s ease;
+#customCarousel1 .carousel-indicators li {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ffffff;
+  opacity: 0.4;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
-.slider_section .detail-box .carousel-indicators li.active {
-  opacity: 1; transform: scale(1.15);
+#customCarousel1 .carousel-indicators li.active {
+  opacity: 1;
+  transform: scale(1.15);
 }
 
-/* Hide any default global indicators if present */
-.slider_section > .container > .carousel-indicators { display: none !important; }
-
-/* Background images in slides (if you add them) */
+/* Optional: background images inside slides */
 .slider_section .img-box img {
-  width: 100%; height: auto; display: block;
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* Mobile tweaks */
@@ -409,7 +407,6 @@ a:focus {
   .slider_section .carousel-item { min-height: 460px; }
   .slider_section .detail-box {
     padding: 18px 18px 12px;
-    margin-bottom: 6px;
   }
   .slider_section .detail-box h1 { font-size: 2rem; }
   .slider_section .detail-box p { font-size: 14px; }
