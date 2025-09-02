@@ -33,8 +33,6 @@
 
 </head>
 
-<body>
-
   <body class="sub_page">
 
   <div class="hero_area">
@@ -418,45 +416,49 @@
   </script>
   <!-- End Google Map -->
 <script>
-(function(){
-  const panels = [...document.querySelectorAll('.dl-panel')];
-  const pills  = [...document.querySelectorAll('.dl-pill')];
+(function () {
+  const panels = Array.from(document.querySelectorAll('.dl-panel'));
+  const pills  = Array.from(document.querySelectorAll('.dl-pill'));
   const select = document.getElementById('dl-year-select');
 
-  function showYear(year, {fromHash=false}={}){
-    // activate panel
-    panels.forEach(p => p.classList.toggle('active', p.id === `panel-${year}`));
-    // update pills
-    pills.forEach(b=>{
-      const on = b.dataset.year === String(year);
+  function showYear(year, { fromHash = false } = {}) {
+    const y = String(year);
+    panels.forEach(p => p.classList.toggle('active', p.id === `panel-${y}`));
+    pills.forEach(b => {
+      const on = b.dataset.year === y;
       b.classList.toggle('active', on);
       b.setAttribute('aria-selected', on ? 'true' : 'false');
     });
-    // sync select
-    if(select && select.value !== String(year)) select.value = String(year);
-    // update hash for deep-linking (skip if we came from a hashchange)
-    if(!fromHash) history.replaceState(null,'', `#year-${year}`);
+    if (select && select.value !== y) select.value = y;
+    if (!fromHash) {
+      try { history.replaceState(null, '', `#year-${y}`); } catch(e){}
+    }
   }
 
-  // click on pills
-  pills.forEach(b=>{
-    b.addEventListener('click', ()=> showYear(b.dataset.year));
-  });
+  // Buttons
+  pills.forEach(b => b.addEventListener('click', () => showYear(b.dataset.year)));
 
-  // select change (mobile)
-  if(select){
-    select.addEventListener('change', e=> showYear(e.target.value));
+  // Select (works with/without nice-select)
+  if (select) {
+    // vanilla listener
+    select.addEventListener('change', e => showYear(e.target.value));
+
+    // jQuery/nice-select fallback (if plugin is active)
+    if (window.jQuery) {
+      jQuery(document).on('change', '#dl-year-select', function () {
+        showYear(this.value);
+      });
+    }
   }
 
-  // initial: read #year-YYYY if present
-  const hashYear = (location.hash.match(/year-(\d{4})/)||[])[1];
-  const defaultYear = hashYear || '2025';
-  showYear(defaultYear, {fromHash: !!hashYear});
+  // Deep-link / initial
+  const hashYear = (location.hash.match(/year-(\d{4})/) || [])[1];
+  showYear(hashYear || '2025', { fromHash: !!hashYear });
 
-  // keep in sync if hash changes (e.g., manual editing)
-  window.addEventListener('hashchange', ()=>{
-    const hy = (location.hash.match(/year-(\d{4})/)||[])[1];
-    if(hy) showYear(hy, {fromHash:true});
+  // Keep in sync with manual hash edits
+  window.addEventListener('hashchange', () => {
+    const hy = (location.hash.match(/year-(\d{4})/) || [])[1];
+    if (hy) showYear(hy, { fromHash: true });
   });
 })();
 </script>
