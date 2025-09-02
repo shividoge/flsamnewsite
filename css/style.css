@@ -312,43 +312,46 @@ a:focus {
 }
 
 /*end header section*/
+/* Slider section container */
 .slider_section {
   position: relative;
-  display: flex;
-  align-items: center;
   overflow: hidden;
-  padding: 0; /* no extra spacing around */
+  padding: 0;
 }
 
-/* make sure each slide has enough height */
+/* Make each slide a flexbox so we can bottom-center the caption reliably */
 .slider_section .carousel,
+.slider_section .carousel-inner,
 .slider_section .carousel-item {
   min-height: 520px;
 }
+
 .slider_section .carousel-item {
-  position: relative; /* so overlay anchors to this */
+  display: flex;
+  align-items: flex-end;              /* push content to the bottom */
+  justify-content: center;            /* center horizontally */
+  position: relative;
+  padding: 24px;                      /* breathing room at edges */
 }
 
-/* detail-box becomes a centered overlay near bottom */
+/* The caption box */
 .slider_section .detail-box {
-  position: absolute;
-  left: 50%;
-  bottom: 8%;                          /* adjust up/down */
-  transform: translateX(-50%);
-  width: min(92%, 900px);               /* max width of caption box */
-  background-color: rgba(2, 56, 20, 0.94); /* your dark green w/ transparency */
-  color: #fff;
+  position: relative;                 /* no absolute needed */
+  width: min(900px, 100%);
+  background: rgba(2, 56, 20, 0.94);  /* dark green */
+  color: #fff;                        /* ensure readable text */
   border-radius: 16px;
   padding: 24px 24px 16px;
-  margin: 0;
+  margin: 0 auto 8px;                 /* sit just above the bottom edge */
   box-shadow: 0 16px 40px rgba(0,0,0,.18);
-  z-index: 5;
-  text-align: left;
+  text-align: center;                 /* center the text */
+  z-index: 1000;                      /* sit above any slide media */
 }
 
+/* Headline & paragraph */
 .slider_section .detail-box h1 {
   font-size: 3rem;
-  font-weight: bold;
+  font-weight: 700;
   margin: 0 0 10px;
 }
 
@@ -358,24 +361,24 @@ a:focus {
   line-height: 1.5;
 }
 
-/* buttons inside overlay */
-.slider_section .detail-box a {
+/* Button */
+.slider_section .detail-box .btn1,
+.slider_section .detail-box a.btn1 {
   display: inline-block;
   padding: 10px 36px;
-  background-color: #023814;
-  color: #ffffff;
+  background: #023814;
+  color: #fff !important;             /* don’t inherit wrong link colors */
   border-radius: 45px;
   border: none;
-  transition: background-color 0.3s ease;
+  transition: background-color .3s ease;
   font-size: 14px;
+  text-decoration: none;
 }
-.slider_section .detail-box a:hover {
-  background-color: #056b27;
-}
+.slider_section .detail-box .btn1:hover { background: #056b27; }
 
-/* indicators now live inside the overlay */
-.slider_section .carousel-indicators {
-  position: static; /* they flow inside the overlay box */
+/* Indicators inside the caption (optional, as you had) */
+.slider_section .detail-box .carousel-indicators {
+  position: static !important;        /* override Bootstrap absolute */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -383,50 +386,35 @@ a:focus {
   margin: 8px 0 0;
   padding: 0;
 }
-.slider_section .carousel-indicators li {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #ffffff;
-  opacity: 0.4;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+.slider_section .detail-box .carousel-indicators li {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: #fff; opacity: .4;
+  transition: transform .2s ease, opacity .2s ease;
 }
-.slider_section .carousel-indicators li.active {
-  opacity: 1;
-  transform: scale(1.15);
-  background: #ffffff;
+.slider_section .detail-box .carousel-indicators li.active {
+  opacity: 1; transform: scale(1.15);
 }
 
-/* hide the outer/global indicators (we moved them inside) */
-.slider_section > .container > .carousel-indicators {
-  display: none !important;
-}
+/* Hide any default global indicators if present */
+.slider_section > .container > .carousel-indicators { display: none !important; }
 
-/* images in background */
+/* Background images in slides (if you add them) */
 .slider_section .img-box img {
-  width: 100%;
-  height: auto;
-  display: block;
+  width: 100%; height: auto; display: block;
 }
 
-/* mobile adjustments */
+/* Mobile tweaks */
 @media (max-width: 768px) {
   .slider_section .carousel,
-  .slider_section .carousel-item {
-    min-height: 460px;
-  }
+  .slider_section .carousel-item { min-height: 460px; }
   .slider_section .detail-box {
-    bottom: 5%;
     padding: 18px 18px 12px;
-    width: min(94%, 900px);
+    margin-bottom: 6px;
   }
-  .slider_section .detail-box h1 {
-    font-size: 2rem;
-  }
-  .slider_section .detail-box p {
-    font-size: 14px;
-  }
+  .slider_section .detail-box h1 { font-size: 2rem; }
+  .slider_section .detail-box p { font-size: 14px; }
 }
+
 .offer_section {
   position: relative;
   padding-top: 45px;
