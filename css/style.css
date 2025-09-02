@@ -316,7 +316,7 @@ a:focus {
 .slider_section .carousel,
 .slider_section .carousel-inner,
 .slider_section .carousel-item {
-  min-height: 840px;                 /* smaller than 520px; adjust as you like */
+  min-height: 1000px;                 /* smaller than 520px; adjust as you like */
 }
 
 /* VERY IMPORTANT: do NOT make items flex/static, etc. 
