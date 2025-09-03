@@ -91,32 +91,27 @@ a:focus {
           box-shadow: none;
 }
 
-/*header section*/
 .hero_area {
   position: relative;
-  min-height: 100vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
+  /* remove min-height: 100vh so it matches image height */
+  min-height: auto;
 }
 
 .bg-box {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;   /* keep it in document flow */
   width: 100%;
-  height: 100%;
+  height: auto;
+  overflow: hidden;     /* optional, keeps things neat */
 }
 
 .bg-box img {
+  display: block;
   width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  height: auto;         /* maintain natural aspect ratio */
+  object-fit: contain;  /* show full image instead of cropping */
+  object-position: center;
 }
 
 .sub_page .hero_area {
