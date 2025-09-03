@@ -99,19 +99,25 @@ a:focus {
   min-height: auto;
 }
 
+/* Background layer fills the hero and sits behind content */
 .bg-box {
-  position: relative;   /* keep it in document flow */
-  width: 100%;
-  height: auto;
-  overflow: hidden;     /* optional, keeps things neat */
+  position: absolute;
+  inset: 0;                  /* top:0; right:0; bottom:0; left:0 */
+  z-index: 0;                /* behind the header/slider */
+  display: grid;             /* centers the image nicely */
+  place-items: center;
+  background: #fff;          /* shows “letterbox” background if needed */
 }
 
+/* Show the whole image (no crop) while the hero keeps its height */
 .bg-box img {
-  display: block;
-  width: 100%;
-  height: auto;         /* maintain natural aspect ratio */
-  object-fit: contain;  /* show full image instead of cropping */
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;       /* no cropping/zooming */
   object-position: center;
+  display: block;
 }
 
 .sub_page .hero_area {
@@ -138,7 +144,12 @@ a:focus {
 .header_section {
   padding: 15px 0;
 }
-
+/* Make sure the header and the slider sit above the bg image */
+.header_section,
+.slider_section {
+  position: relative;
+  z-index: 1;
+}
 .header_section .container-fluid {
   padding-right: 25px;
   padding-left: 25px;
