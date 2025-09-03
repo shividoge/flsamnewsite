@@ -107,9 +107,11 @@ a:focus {
   position: absolute;
   top: 0;
   left: 0;
+  height: 100%;
 }
 
 .bg-box img {
+    height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
